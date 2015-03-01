@@ -33,7 +33,7 @@ public class NetworkTest {
 		
 		
 		
-<<<<<<< HEAD
+
 //		Thread serverThread = new Thread() {
 //			public void run() {
 //				try {
@@ -62,7 +62,7 @@ public class NetworkTest {
 //		};
 //		
 //		serverThread.start();
-=======
+
 	/*	Thread serverThread = new Thread() {
 			public void run() {
 				try {
@@ -91,7 +91,7 @@ public class NetworkTest {
 		};
 		
 		serverThread.start();*/
->>>>>>> origin/master
+
 		
 		File f = new File("//192.168.1.229/Users/Public/ClientSide/databaseR.txt");
 	//	NetworkClient.sendFile(fIStream, bIStream, oStream, f);
@@ -108,15 +108,15 @@ public class NetworkTest {
 		
 		assertTrue(f.exists());
 		
-<<<<<<< HEAD
+
 //		File ff = new File("//192.168.1.229/Users/Public/ServerSide/databaseRR.txt");
 //		
 //		assertTrue(ff.exists());
-=======
+
 		//File ff = new File("//192.168.1.229/Users/Public/ServerSide/databaseRR.txt");
 		
 		//assertTrue(ff.exists());
->>>>>>> origin/master
+
 	}
 	
 //	@Test
