@@ -33,7 +33,7 @@ public class NetworkTest {
 		
 		
 		
-		Thread serverThread = new Thread() {
+	/*	Thread serverThread = new Thread() {
 			public void run() {
 				try {
 					File f = new File("//192.168.1.229/Users/Public/ServerSide/database.txt");
@@ -45,11 +45,11 @@ public class NetworkTest {
 			}
 		};
 		
-		serverThread.start();
+		serverThread.start(); */
 		
 		NetworkClient.getFile(fOStream, bOStream, incoming);
 		
-		serverThread = new Thread() {
+	/*	Thread serverThread = new Thread() {
 			public void run() {
 				try {
 					NetworkConnection.recieveFile(fOStream, bOStream, incoming);
@@ -60,10 +60,10 @@ public class NetworkTest {
 			}
 		};
 		
-		serverThread.start();
+		serverThread.start();*/
 		
 		File f = new File("//192.168.1.229/Users/Public/ClientSide/databaseR.txt");
-		NetworkClient.sendFile(fIStream, bIStream, oStream, f);
+	//	NetworkClient.sendFile(fIStream, bIStream, oStream, f);
 		//assertTrue(s.isBound());
 		//assertTrue(s.isClosed());
 		
@@ -77,9 +77,9 @@ public class NetworkTest {
 		
 		assertTrue(f.exists());
 		
-		File ff = new File("//192.168.1.229/Users/Public/ServerSide/databaseRR.txt");
+		//File ff = new File("//192.168.1.229/Users/Public/ServerSide/databaseRR.txt");
 		
-		assertTrue(ff.exists());
+		//assertTrue(ff.exists());
 	}
 	
 //	@Test
