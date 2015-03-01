@@ -36,7 +36,7 @@ public class NetworkTest {
 		Thread serverThread = new Thread() {
 			public void run() {
 				try {
-					File f = new File("c:/database.txt");
+					File f = new File("//192.168.1.229/Users/Public/ServerSide/database.txt");
 					NetworkConnection.sendFile(fIStream, bIStream, oStream, incoming, f);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -62,7 +62,7 @@ public class NetworkTest {
 		
 		serverThread.start();
 		
-		File f = new File("C:/Users/Louis/Desktop/databaseR.txt");
+		File f = new File("//192.168.1.229/Users/Public/ClientSide/databaseR.txt");
 		NetworkClient.sendFile(fIStream, bIStream, oStream, f);
 		//assertTrue(s.isBound());
 		//assertTrue(s.isClosed());
@@ -77,7 +77,7 @@ public class NetworkTest {
 		
 		assertTrue(f.exists());
 		
-		File ff = new File("C:/Users/Louis/Desktop/databaseRR.txt");
+		File ff = new File("//192.168.1.229/Users/Public/ServerSide/databaseRR.txt");
 		
 		assertTrue(ff.exists());
 	}
