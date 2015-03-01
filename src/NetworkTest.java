@@ -79,7 +79,15 @@ public class NetworkTest {
 		
 		
 		File f = new File("//192.168.1.229/Users/Public/ClientSide/databaseR.txt");
-	//	NetworkClient.sendFile(fIStream, bIStream, oStream, f);
+		
+		try {
+			Thread.sleep(5000); //waits for files to appear
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		NetworkClient.sendFile(fIStream, bIStream, oStream, f);
 		//assertTrue(s.isBound());
 		//assertTrue(s.isClosed());
 		
