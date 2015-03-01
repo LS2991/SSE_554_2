@@ -77,21 +77,6 @@ public class NetworkTest {
 		
 		serverThread.start(); */
 		
-		NetworkClient.getFile(fOStream, bOStream, incoming);
-		
-	/*	Thread serverThread = new Thread() {
-			public void run() {
-				try {
-					NetworkConnection.recieveFile(fOStream, bOStream, incoming);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			}
-		};
-		
-		serverThread.start();*/
-
 		
 		File f = new File("//192.168.1.229/Users/Public/ClientSide/databaseR.txt");
 	//	NetworkClient.sendFile(fIStream, bIStream, oStream, f);
