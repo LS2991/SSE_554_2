@@ -1,9 +1,14 @@
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 
 public class NetworkClient {
@@ -14,52 +19,74 @@ public class NetworkClient {
 	public final static int FILE_SIZE = 6022386;
 	
 	static int bytesRead;
-	static int current = 0;
-	static FileOutputStream oStream = null;
-	static BufferedOutputStream bStream = null;
+	static FileOutputStream fOStream = null;
+	static FileInputStream fStream = null;
+	static BufferedInputStream bIStream = null;
+	static BufferedOutputStream bOStream = null;
+	static OutputStream oStream = null;
 	static Socket s = null;
 	
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		File f = getFile(oStream, bStream, s);
+	
+	public static void connect() throws UnknownHostException, IOException {
+		s = new Socket(IP, portNumber);
+		
 	}
 	
-	public static File getFile(FileOutputStream oStream, BufferedOutputStream bStream, Socket s) throws IOException {
+	public static void closeConnection() throws IOException {
+		s.close();
+	}
+	
+	public static File getFile(FileOutputStream fOStream, BufferedOutputStream bOStream) throws IOException {
 		
 		try {
-			s = new Socket(IP, portNumber);
 			System.out.println("Connecting...");
-			
+			connect();
 			//receive file
 			byte[] byteArray = new byte[FILE_SIZE];
 			InputStream iStream = s.getInputStream();
-			oStream = new FileOutputStream(fileReceived);
-			bStream = new BufferedOutputStream (oStream);
+			fOStream = new FileOutputStream(fileReceived);
+			bOStream = new BufferedOutputStream (fOStream);
 			bytesRead = iStream.read(byteArray, 0, byteArray.length);
-			current = bytesRead;
-			
-			while(bytesRead > -1) {
-				bytesRead = iStream.read(byteArray, 0, byteArray.length);
-				if(bytesRead >= 0)
-					current += bytesRead;
-			}
-			
-			bStream.write(byteArray, 0, current);
-			bStream.flush();
+			bOStream.write(byteArray, 0, bytesRead);
+			bOStream.flush();
 			File f = new File(fileReceived);
-			System.out.print("File recieved");
-			
+			System.out.println("File recieved");
 			
 			return f;
 		}
 		
 		finally {
+			if(fOStream != null)
+				fOStream.close();
+			if(bOStream != null)
+				bOStream.close();
+			closeConnection();
+		}
+	}
+	
+	public static void sendFile(FileInputStream fIStream, BufferedInputStream bIStream, OutputStream oStream, File f) throws IOException { //file must exist first
+		
+		try {
+			connect();
+			//s = new Socket(IP, portNumber);
+			System.out.println("Sending");
+			byte[] byteArray = new byte[(int) f.length()];
+			fIStream = new FileInputStream(f);
+			bIStream = new BufferedInputStream(fIStream);
+			bIStream.read(byteArray, 0, byteArray.length);
+			oStream = s.getOutputStream();
+			System.out.println("Sending file");
+			oStream.write(byteArray, 0, byteArray.length);
+			oStream.flush();
+			System.out.println("Done.");	
+		}
+		
+		finally {
+			if(bIStream != null)
+				bIStream.close();
 			if(oStream != null)
 				oStream.close();
-			if(bStream != null)
-				bStream.close();
-			if(s != null)
-				s.close();
+			closeConnection();
 		}
 	}
 
