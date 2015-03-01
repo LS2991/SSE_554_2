@@ -96,7 +96,7 @@ public class NetworkConnection {
 			System.out.println(bytesRead);
 			bOStream.write(byteArray, 0, bytesRead);
 			bOStream.flush();
-			System.out.print("File recieved");
+			System.out.println("File recieved");
 		}
 	
 		finally {
