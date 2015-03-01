@@ -22,14 +22,14 @@ public class NetworkTest {
 	
 	@Test
 	public void fileTransferTest() throws IOException { //includes send and receiving a file from both client and server side
-		FileOutputStream fOStream = null;
-		BufferedOutputStream bOStream = null;
+		final FileOutputStream fOStream = null;
+		final BufferedOutputStream bOStream = null;
 		ServerSocket s = null;
-		Socket incoming = null;
+		final Socket incoming = null;
 		//Socket clientS = null;
-		FileInputStream fIStream = null;
-		BufferedInputStream bIStream = null;
-		OutputStream oStream = null;
+		final FileInputStream fIStream = null;
+		final BufferedInputStream bIStream = null;
+		final OutputStream oStream = null;
 		
 		
 		
