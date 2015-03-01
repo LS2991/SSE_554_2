@@ -28,6 +28,10 @@ public class NetworkClient {
 	static Socket s = null;
 	
 	
+	public static void main(String[] args) throws IOException {
+		getFile(fOStream, bOStream, s);
+	}
+	
 	public static Socket connect() throws UnknownHostException, IOException {
 		s = new Socket(IP, portNumber);
 		return s;

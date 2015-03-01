@@ -23,7 +23,7 @@ public class NetworkConnection {
 	static FileOutputStream fOStream = null;
 	static BufferedOutputStream bOStream = null;
 	
-	//public final static String fileReceived = "//192.168.1.229/Users/Public/ServerSide/databaseRR.txt";
+	public final static String fileReceived = "//192.168.1.229/Users/Public/ServerSide/databaseRR.txt";
 	public final static int FILE_SIZE = 6022386;
 	
 	public static void main (String [] args) throws IOException {

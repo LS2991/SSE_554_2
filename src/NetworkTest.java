@@ -33,34 +33,34 @@ public class NetworkTest {
 		
 		
 		
-		Thread serverThread = new Thread() {
-			public void run() {
-				try {
-					File f = new File("//192.168.1.229/Users/Public/ServerSide/database.txt");
-					NetworkConnection.sendFile(fIStream, bIStream, oStream, incoming, f);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			}
-		};
-		
-		serverThread.start();
+//		Thread serverThread = new Thread() {
+//			public void run() {
+//				try {
+//					File f = new File("//192.168.1.229/Users/Public/ServerSide/database.txt");
+//					NetworkConnection.sendFile(fIStream, bIStream, oStream, incoming, f);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} 
+//			}
+//		};
+//		
+//		serverThread.start();
 		
 		NetworkClient.getFile(fOStream, bOStream, incoming);
 		
-		serverThread = new Thread() {
-			public void run() {
-				try {
-					NetworkConnection.recieveFile(fOStream, bOStream, incoming);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			}
-		};
-		
-		serverThread.start();
+//		serverThread = new Thread() {
+//			public void run() {
+//				try {
+//					NetworkConnection.recieveFile(fOStream, bOStream, incoming);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} 
+//			}
+//		};
+//		
+//		serverThread.start();
 		
 		File f = new File("//192.168.1.229/Users/Public/ClientSide/databaseR.txt");
 		NetworkClient.sendFile(fIStream, bIStream, oStream, f);
@@ -77,9 +77,9 @@ public class NetworkTest {
 		
 		assertTrue(f.exists());
 		
-		File ff = new File("//192.168.1.229/Users/Public/ServerSide/databaseRR.txt");
-		
-		assertTrue(ff.exists());
+//		File ff = new File("//192.168.1.229/Users/Public/ServerSide/databaseRR.txt");
+//		
+//		assertTrue(ff.exists());
 	}
 	
 //	@Test
