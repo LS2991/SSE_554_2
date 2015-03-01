@@ -47,7 +47,7 @@ public class NetworkTest {
 		
 		serverThread.start();
 		
-		NetworkClient.getFile(fOStream, bOStream);
+		NetworkClient.getFile(fOStream, bOStream, incoming);
 		
 		serverThread = new Thread() {
 			public void run() {
