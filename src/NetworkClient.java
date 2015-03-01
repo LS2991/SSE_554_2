@@ -28,20 +28,20 @@ public class NetworkClient {
 	static Socket s = null;
 	
 	
-	public static void connect() throws UnknownHostException, IOException {
+	public static Socket connect() throws UnknownHostException, IOException {
 		s = new Socket(IP, portNumber);
-		
+		return s;
 	}
 	
 	public static void closeConnection() throws IOException {
 		s.close();
 	}
 	
-	public static File getFile(FileOutputStream fOStream, BufferedOutputStream bOStream) throws IOException {
+	public static File getFile(FileOutputStream fOStream, BufferedOutputStream bOStream, Socket s) throws IOException {
 		
 		try {
 			System.out.println("Connecting...");
-			connect();
+			s = connect();
 			//receive file
 			byte[] byteArray = new byte[FILE_SIZE];
 			InputStream iStream = s.getInputStream();

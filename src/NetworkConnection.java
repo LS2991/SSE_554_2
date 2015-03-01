@@ -23,14 +23,14 @@ public class NetworkConnection {
 	static FileOutputStream fOStream = null;
 	static BufferedOutputStream bOStream = null;
 	
-	public final static String fileReceived = "//192.168.1.229/Users/Public/ServerSide/databaseRR.txt";
+	//public final static String fileReceived = "//192.168.1.229/Users/Public/ServerSide/databaseRR.txt";
 	public final static int FILE_SIZE = 6022386;
 	
 	public static void main (String [] args) throws IOException {
 		
-		File f = new File("192.168.1.229/Users/Public/ServerSide/database.txt");
+		File f = new File("//192.168.1.229/Users/Public/ServerSide/database.txt");
 		sendFile(fIStream, bIStream, oStream, incoming, f);
-		recieveFile(fOStream, bOStream, incoming);
+		//recieveFile(fOStream, bOStream, incoming);
 	}
 	
 	public static ServerSocket connect() throws IOException {
@@ -66,11 +66,11 @@ public class NetworkConnection {
 			}
 			
 			finally {
-					if(bIStream != null)
-						bIStream.close();
-					if(oStream != null)
-						oStream.close();
-					closeConnection();
+//					if(bIStream != null)
+//						bIStream.close();
+//					if(oStream != null)
+//						oStream.close();
+//					//closeConnection();
 			}
 	}
 	
