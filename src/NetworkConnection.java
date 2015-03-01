@@ -28,9 +28,9 @@ public class NetworkConnection {
 	
 	public static void main (String [] args) throws IOException {
 		
-		File f = new File(fileReceived);
+		File f = new File("192.168.1.229/Users/Public/ServerSide/database.txt");
 		sendFile(fIStream, bIStream, oStream, incoming, f);
-		//recieveFile(fOStream, bOStream, s, incoming);
+		recieveFile(fOStream, bOStream, incoming);
 	}
 	
 	public static ServerSocket connect() throws IOException {
