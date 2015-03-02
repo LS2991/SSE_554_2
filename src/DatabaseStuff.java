@@ -6,11 +6,11 @@ import java.util.Scanner;
 
 public class DatabaseStuff 
 {
-	  public void SaveGame(int selection, File f) throws FileNotFoundException
+	  public static String SaveGame(int selection, File f) throws FileNotFoundException
 	  {
 	    Connection c = null;
 	    Statement stmt = null;
-	    String file = null,name;
+	    String file = null,name = null;
 	    int id;
 	    try {
 	      Class.forName("org.sqlite.JDBC");
@@ -43,13 +43,14 @@ public class DatabaseStuff
 		    writer.print("The game was saved.");
 		    writer.close();
 	    }
+	    return name;
 	  }
 	  
-	  public void LoadGame(int selection, File f) throws FileNotFoundException
+	  public static String LoadGame(int selection, File f) throws FileNotFoundException
 	  {
 	    Connection c = null;
 	    Statement stmt = null;
-	    String file = null,name;
+	    String file = null,name = null;
 	    int id;
 	    try {
 	      Class.forName("org.sqlite.JDBC");
@@ -92,9 +93,10 @@ public class DatabaseStuff
 				System.out.print("File not found");
 				}
 	    }
+	    return name;
 	  }
 	  
-	  public void UpdateFile(int selection, String newName,File f)
+	  public static void UpdateFile(int selection, String newName,File f)
 	  {
 		  Connection c = null;
 		    Statement stmt = null;
@@ -107,7 +109,7 @@ public class DatabaseStuff
 		      System.out.println("Opened database successfully");
 
 		      stmt = c.createStatement();
-		      String sql = "UPDATE 'Saved Games' set 'File Name' = " + newName +" WHERE 'Saved Games'.'FileNum' = "+ selection +";";
+		      String sql = "UPDATE 'Saved Games' set 'File Name' = '" + newName +"' WHERE 'Saved Games'.'FileNum' = "+ selection +";";
 		      stmt.executeUpdate(sql);
 		      c.commit();		      
 		   /*   while ( rs.next() ) {
