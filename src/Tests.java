@@ -25,8 +25,6 @@ import org.junit.Test;
 
 
 public class Tests {
-	private static final File File = null;
-	
 	@Test
 	public void SaveGameTest() throws FileNotFoundException
 	{
