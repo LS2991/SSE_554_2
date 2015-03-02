@@ -96,67 +96,71 @@ public class NetworkConnection {
 //			incoming.close();
 	}
 	public static void sendFile(FileInputStream fIStream, BufferedInputStream bIStream, OutputStream oStream, Socket incoming, File f) throws IOException { //file must exist first
-			System.out.println("Waiting...");
-			try {
-				if(incoming == null) {
-					incoming = sendingConnect().accept();
-				}
-				//incoming = s.accept();
-				System.out.println("Accepted connection : " + incoming);
-				//Sending a file
-				//File f = new File("c:/database.txt");
-				byte[] byteArray = new byte[(int)f.length()];
-				fIStream = new FileInputStream(f);
-				bIStream = new BufferedInputStream(fIStream);
-				bIStream.read(byteArray, 0, byteArray.length);
-				oStream = incoming.getOutputStream();
-				System.out.println("Sending File");
-				oStream.write(byteArray, 0, byteArray.length);
-				oStream.flush();
+		while(true) {
+				System.out.println("Waiting...");
 				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					//if(incoming == null) {
+						incoming = sendingConnect().accept();
+					//}
+					//incoming = s.accept();
+					System.out.println("Accepted connection : " + incoming);
+					//Sending a file
+					//File f = new File("c:/database.txt");
+					byte[] byteArray = new byte[(int)f.length()];
+					fIStream = new FileInputStream(f);
+					bIStream = new BufferedInputStream(fIStream);
+					bIStream.read(byteArray, 0, byteArray.length);
+					oStream = incoming.getOutputStream();
+					System.out.println("Sending File");
+					oStream.write(byteArray, 0, byteArray.length);
+					oStream.flush();
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.out.println("Done.");
 				}
-				System.out.println("Done.");
-			}
-			
-			finally {
-					if(bIStream != null)
-						bIStream.close();
-					if(oStream != null)
-						oStream.close();
-					closeSendConnection();
-			}
+				
+				finally {
+						if(bIStream != null)
+							bIStream.close();
+						if(oStream != null)
+							oStream.close();
+						closeSendConnection();
+				}
+		}
 	}
 	
 	public static void receiveFile(FileOutputStream fOStream, BufferedOutputStream bOStream, Socket incoming) throws IOException {
-		try {
-			System.out.println("Waiting to receive");
-			
-			if(incoming == null) {
-				incoming = receivingConnect().accept();
+		while(true) {
+			try {
+				System.out.println("Waiting to receive");
+				
+				//if(incoming == null) {
+					incoming = receivingConnect().accept();
+				//}
+				
+				System.out.println("Getting file");
+				byte[] byteArray = new byte[FILE_SIZE];
+				InputStream iStream = incoming.getInputStream();
+				fOStream = new FileOutputStream(fileReceived);
+				bOStream = new BufferedOutputStream (fOStream);
+				bytesRead = iStream.read(byteArray, 0, byteArray.length);
+				System.out.println(bytesRead);
+				bOStream.write(byteArray, 0, bytesRead);
+				bOStream.flush();
+				System.out.println("File recieved");
 			}
-			
-			System.out.println("Getting file");
-			byte[] byteArray = new byte[FILE_SIZE];
-			InputStream iStream = incoming.getInputStream();
-			fOStream = new FileOutputStream(fileReceived);
-			bOStream = new BufferedOutputStream (fOStream);
-			bytesRead = iStream.read(byteArray, 0, byteArray.length);
-			System.out.println(bytesRead);
-			bOStream.write(byteArray, 0, bytesRead);
-			bOStream.flush();
-			System.out.println("File recieved");
-		}
-	
-		finally {
-			if(fOStream != null)
-				fOStream.close();
-			if(bOStream != null)
-				bOStream.close();
-			closeReceiveConnection();
+		
+			finally {
+				if(fOStream != null)
+					fOStream.close();
+				if(bOStream != null)
+					bOStream.close();
+				closeReceiveConnection();
+			}
 		}
 	}
 }
