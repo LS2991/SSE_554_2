@@ -39,22 +39,49 @@ class SSEFrame extends JFrame {
 	private JButton saveButton;
 	
 	public SSEFrame() {
-		JPanel buttonPanel = new JPanel ();
-		buttonPanel.setLayout(new GridLayout(3,3));
+		JPanel panel = new JPanel ();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		
 		selectionField = new JTextField();
-		buttonPanel.add(selectionField);
+		c.weightx = 0.5;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
+		panel.add(new JLabel("Number: "), c);
+		c.gridx = 0;
+		c.gridy = 1;
+		panel.add(selectionField, c);
 		
 		filenameField = new JTextField();
-		buttonPanel.add(filenameField);
+		c.gridx = 3;
+		c.gridy = 0;
+		panel.add(new JLabel("File name: "), c);
+		c.gridwidth = 2;
+		c.gridx = 3;
+		c.gridy = 1;
+		panel.add(filenameField, c);
 		
 		nameField = new JTextField();
-		buttonPanel.add(nameField);
-		buttonPanel.add(new JLabel());
+		c.gridwidth = 1;
+		c.gridx = 5;
+		c.gridy = 0;
+		panel.add(new JLabel("Name: "), c);
+		c.gridwidth = 3;
+		c.gridx = 5;
+		c.gridy = 1;
+		panel.add(nameField, c);
+		c.ipadx = 20;
+		c.gridwidth = 2;
+		
 		status = new JLabel();
 		status.setText("No save selected.");
-		buttonPanel.add(status);
-		buttonPanel.add(new JLabel());
+		c.ipady = 40;
+		c.gridwidth = 2;
+		c.gridx = 3;
+		c.gridy = 2;
+		panel.add(status, c);
+		c.ipady = 0;
 		
 		updateButton = new JButton("Update");
 		updateButton.addActionListener(new ActionListener() {
@@ -66,7 +93,10 @@ class SSEFrame extends JFrame {
 				}
 			}
 		});
-		buttonPanel.add(updateButton);
+		c.gridwidth = 2;
+		c.gridx = 0;
+		c.gridy = 3;
+		panel.add(updateButton, c);
 		
 		loadButton = new JButton("Load");
 		loadButton.addActionListener(new ActionListener() {
@@ -78,7 +108,10 @@ class SSEFrame extends JFrame {
 				}
 			}
 		});
-		buttonPanel.add(loadButton);
+		c.gridwidth = 2;
+		c.gridx = 3;
+		c.gridy = 3;
+		panel.add(loadButton, c);
 		
 		saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
@@ -90,13 +123,16 @@ class SSEFrame extends JFrame {
 				}
 			}
 		});
-		buttonPanel.add(saveButton);
+		c.gridwidth = 2;
+		c.gridx = 5;
+		c.gridy = 3;
+		panel.add(saveButton, c);
 		pack();
 		
-		buttonPanel.setOpaque(true);
-		buttonPanel.setVisible(true);
+		//panel.setOpaque(true);
+		panel.setVisible(true);
 		
-		add(buttonPanel);
+		add(panel);
 	}
 	
 
