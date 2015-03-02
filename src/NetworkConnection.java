@@ -29,9 +29,34 @@ public class NetworkConnection {
 	public static void main (String [] args) throws IOException {
 		
 		while(true) {
-			File f = new File("//192.168.1.229/Users/Public/ServerSide/database.txt");
-			sendFile(fIStream, bIStream, oStream, incoming, f);
-			recieveFile(fOStream, bOStream, incoming);
+			File f = new File("//192.168.1.229/Users/Public/ServerSide/save_files");
+			
+			Thread sending = new Thread() {
+				public void run() {
+					File f = new File("//192.168.1.229/Users/Public/ServerSide/save_files");
+					try {
+						sendFile(fIStream, bIStream, oStream, incoming, f);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			
+			Thread receiving = new Thread() {
+				public void run() {
+					try {
+						recieveFile(fOStream, bOStream, incoming);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			};
+			
+			sending.start();
+			receiving.start();
+			
 		}
 		
 	}
@@ -52,7 +77,9 @@ public class NetworkConnection {
 	public static void sendFile(FileInputStream fIStream, BufferedInputStream bIStream, OutputStream oStream, Socket incoming, File f) throws IOException { //file must exist first
 			System.out.println("Waiting...");
 			try {
-				incoming = connect().accept();
+				if(!incoming.isBound()) {
+					incoming = connect().accept();
+				}
 				//incoming = s.accept();
 				System.out.println("Accepted connection : " + incoming);
 				//Sending a file
@@ -86,7 +113,11 @@ public class NetworkConnection {
 	public static void recieveFile(FileOutputStream fOStream, BufferedOutputStream bOStream, Socket incoming) throws IOException {
 		try {
 			System.out.println("Waiting to receive");
-			incoming = connect().accept();
+			
+			if(!incoming.isBound()) {
+				incoming = connect().accept();
+			}
+			
 			System.out.println("Getting file");
 			byte[] byteArray = new byte[FILE_SIZE];
 			InputStream iStream = incoming.getInputStream();
