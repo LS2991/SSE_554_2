@@ -17,7 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class NetworkTest {
+public class Tests {
 	
 	
 	@Test
