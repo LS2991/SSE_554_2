@@ -12,12 +12,15 @@ import java.net.Socket;
 
 public class NetworkConnection {
 
-	final static int portNum = 8189;
+	final static int portNum1 = 8189;
+	final static int portNum2 = 8190;
 	static FileInputStream fIStream = null;
 	static BufferedInputStream bIStream = null;
 	static OutputStream oStream = null;
-	static ServerSocket s =null;
-	static Socket incoming = null;
+	static ServerSocket sendS =null;
+	static ServerSocket receiveS =null;
+	static Socket incomingSend = null;
+	static Socket incomingReceive = null;
 	static int bytesRead;
 	
 	static FileOutputStream fOStream = null;
@@ -28,15 +31,14 @@ public class NetworkConnection {
 	
 	public static void main (String [] args) throws IOException {
 		
-		while(true) {
+		//while(true) {
 			File f = new File("//192.168.1.229/Users/Public/ServerSide/save_files");
-<<<<<<< HEAD
-			
+
 			Thread sending = new Thread() {
 				public void run() {
 					File f = new File("//192.168.1.229/Users/Public/ServerSide/save_files");
 					try {
-						sendFile(fIStream, bIStream, oStream, incoming, f);
+						sendFile(fIStream, bIStream, oStream, incomingSend, f);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -47,7 +49,7 @@ public class NetworkConnection {
 			Thread receiving = new Thread() {
 				public void run() {
 					try {
-						recieveFile(fOStream, bOStream, incoming);
+						receiveFile(fOStream, bOStream, incomingReceive);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -58,32 +60,46 @@ public class NetworkConnection {
 			sending.start();
 			receiving.start();
 			
-=======
-			sendFile(fIStream, bIStream, oStream, incoming, f);
-			recieveFile(fOStream, bOStream, incoming);
->>>>>>> origin/master
+
+//			sendFile(fIStream, bIStream, oStream, incoming, f);
+//			receiveFile(fOStream, bOStream, incoming);
+
 		}
 		
-	}
+	//}
 	
-	public static ServerSocket connect() throws IOException {
-		s = new ServerSocket(portNum);
+	public static ServerSocket sendingConnect() throws IOException {
+		sendS = new ServerSocket(portNum1);
 		//incoming = s.accept();
 		
-		return s;
+		return sendS;
 	}
 	
-	public static void closeConnection() throws IOException {
-		if(s != null)
-			s.close();
+	public static ServerSocket receivingConnect() throws IOException {
+		receiveS = new ServerSocket(portNum2);
+		//incoming = s.accept();
+		
+		return receiveS;
+	}
+	
+	public static void closeSendConnection() throws IOException {
+		if(sendS != null)
+			sendS.close();
+//		if(incoming != null)
+//			incoming.close();
+	}
+	
+	public static void closeReceiveConnection() throws IOException {
+		if(receiveS != null)
+			receiveS.close();
 //		if(incoming != null)
 //			incoming.close();
 	}
 	public static void sendFile(FileInputStream fIStream, BufferedInputStream bIStream, OutputStream oStream, Socket incoming, File f) throws IOException { //file must exist first
 			System.out.println("Waiting...");
 			try {
-				if(!incoming.isBound()) {
-					incoming = connect().accept();
+				if(incoming == null) {
+					incoming = sendingConnect().accept();
 				}
 				//incoming = s.accept();
 				System.out.println("Accepted connection : " + incoming);
@@ -111,16 +127,16 @@ public class NetworkConnection {
 						bIStream.close();
 					if(oStream != null)
 						oStream.close();
-					closeConnection();
+					closeSendConnection();
 			}
 	}
 	
-	public static void recieveFile(FileOutputStream fOStream, BufferedOutputStream bOStream, Socket incoming) throws IOException {
+	public static void receiveFile(FileOutputStream fOStream, BufferedOutputStream bOStream, Socket incoming) throws IOException {
 		try {
 			System.out.println("Waiting to receive");
 			
-			if(!incoming.isBound()) {
-				incoming = connect().accept();
+			if(incoming == null) {
+				incoming = receivingConnect().accept();
 			}
 			
 			System.out.println("Getting file");
@@ -140,7 +156,7 @@ public class NetworkConnection {
 				fOStream.close();
 			if(bOStream != null)
 				bOStream.close();
-			closeConnection();
+			closeReceiveConnection();
 		}
 	}
 }
