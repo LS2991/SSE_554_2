@@ -16,7 +16,7 @@ public class NetworkClient {
 	public final static int portNumber = 8189;
 	public final static String IP = "192.168.1.229";
 	//public final static String fileReceived = "C:/Users/Louis/Desktop/databaseR.txt";
-	public final static String fileReceived = "//192.168.1.229/Users/Public/ClientSide/databaseR.txt";
+	public final static String fileReceived = "//192.168.1.229/Users/Public/ClientSide/save_files2";
 	public final static int FILE_SIZE = 6022386;
 	
 	static int bytesRead;

@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class DatabaseStuff 
 {
-	  public void SaveGame(int selection) throws FileNotFoundException
+	  public void SaveGame(int selection, File f) throws FileNotFoundException
 	  {
 	    Connection c = null;
 	    Statement stmt = null;
@@ -14,7 +14,7 @@ public class DatabaseStuff
 	    int id;
 	    try {
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:save_files");
+	      c = DriverManager.getConnection("jdbc:sqlite:"+f.getName());
 	      c.setAutoCommit(false);
 	      System.out.println("Opened database successfully");
 
@@ -45,7 +45,7 @@ public class DatabaseStuff
 	    }
 	  }
 	  
-	  public void LoadGame(int selection) throws FileNotFoundException
+	  public void LoadGame(int selection, File f) throws FileNotFoundException
 	  {
 	    Connection c = null;
 	    Statement stmt = null;
@@ -53,7 +53,7 @@ public class DatabaseStuff
 	    int id;
 	    try {
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:save_files");
+	      c = DriverManager.getConnection("jdbc:sqlite:"+f.getName());
 	      c.setAutoCommit(false);
 	      System.out.println("Opened database successfully");
 
@@ -94,7 +94,7 @@ public class DatabaseStuff
 	    }
 	  }
 	  
-	  public void UpdateFile(int selection, String newName)
+	  public void UpdateFile(int selection, String newName,File f)
 	  {
 		  Connection c = null;
 		    Statement stmt = null;
@@ -102,7 +102,7 @@ public class DatabaseStuff
 		    int id;
 		    try {
 		      Class.forName("org.sqlite.JDBC");
-		      c = DriverManager.getConnection("jdbc:sqlite:save_files");
+		      c = DriverManager.getConnection("jdbc:sqlite:"+f.getName());
 		      c.setAutoCommit(false);
 		      System.out.println("Opened database successfully");
 
