@@ -24,7 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class Tests {
+public class Tests { 
 	@Test
 	public void SaveGameTest() throws FileNotFoundException
 	{
@@ -110,5 +110,55 @@ public class Tests {
 //		File f = new File("C:/Users/Louis/Desktop/databaseRR.txt");
 //		assertTrue(f.exists());
 //	}
-
+	
+	@Test
+	public void saveGameGUI() throws IOException{
+		// Simulate saving a file
+		SSEFrame frame = new SSEFrame();
+		frame.selectionField.setText("1");
+		frame.loadGame();
+		
+		String name = "Keith Russel";
+		frame.nameField.setText(name);
+		
+		frame.saveGame();
+		
+		SSEFrame frame2 = new SSEFrame();
+		frame2.selectionField.setText("1");
+		frame2.loadGame();
+		
+		assertEquals(frame2.nameField.getText(),name);
+	}
+	
+	@Test
+	public void loadGameGUI() throws IOException{
+		// Simulate selecting a file
+		SSEFrame frame = new SSEFrame();
+		frame.selectionField.setText("1");
+		frame.loadGame();
+		
+		String name = frame.nameField.getText();
+		
+		assertEquals("Keith Russel",name);
+	}
+	
+	@Test
+	public void updateGameGUI() throws IOException{
+		// Simulate updating a file
+		SSEFrame frame = new SSEFrame();
+		frame.selectionField.setText("2"); // Select field 2
+		frame.loadGame(); // Load from database
+		
+		String name = "Louis Santa ego"; // set new name
+		frame.nameField.setText(name);
+		
+		frame.saveGame(); // save name locally
+		frame.updateFile(); // update database with new name
+		
+		SSEFrame frame2 = new SSEFrame();
+		frame2.selectionField.setText("2"); // load game from database with new frame
+		frame2.loadGame();
+		
+		assertEquals(frame2.nameField.getText(),name);
+	}
 }

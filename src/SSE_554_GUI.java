@@ -2,12 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import java.net.Socket;
-import java.nio.file.*;
-import java.sql.*;
-import java.util.*;
-
-import javax.sql.*;
-import javax.sql.rowset.*;
 import javax.swing.*;
 
 public class SSE_554_GUI {
@@ -30,10 +24,10 @@ class SSEFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField selectionField;
-	private JTextField filenameField;
-	private JTextField nameField;
-	private JLabel status;
+	public static JTextField selectionField;
+	public static JTextField filenameField;
+	public static JTextField nameField;
+	private static JLabel status;
 	private JButton updateButton;
 	private JButton loadButton;
 	private JButton saveButton;
@@ -129,7 +123,7 @@ class SSEFrame extends JFrame {
 		panel.add(saveButton, c);
 		pack();
 		
-		//panel.setOpaque(true);
+		// panel.setOpaque(true);
 		panel.setVisible(true);
 		
 		add(panel);
@@ -141,9 +135,11 @@ class SSEFrame extends JFrame {
 		BufferedInputStream bIStream = null;
 		OutputStream oStream = null;
 		File f = new File("//192.168.1.229/Users/Public/ServerSide/save_files");
+		// File f = new File("save_files"); // use for test
 		int sel = Integer.parseInt(selectionField.getText());
 		String name = nameField.getText();
 		
+		// Update file on Network Client
 		NetworkClient.sendFile(fIStream, bIStream, oStream, f);
 		DatabaseStuff.UpdateFile(sel, name, f);
 		status.setText("Database Updated.");
@@ -154,9 +150,8 @@ class SSEFrame extends JFrame {
 		BufferedOutputStream bOStream = null;
 		Socket s = null;
 		File f = NetworkClient.getFile(fOStream, bOStream, s);	
+		// File f = new File("save_files"); // Use for test
 		int sel = Integer.parseInt(selectionField.getText());
-		
-		System.out.println(f.getName());
 		
 		String name = DatabaseStuff.LoadGame(sel, f);
 		
