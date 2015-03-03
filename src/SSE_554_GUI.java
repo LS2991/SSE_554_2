@@ -27,7 +27,7 @@ class SSEFrame extends JFrame {
 	public static JTextField selectionField;
 	public static JTextField filenameField;
 	public static JTextField nameField;
-	private static JLabel status;
+	private JLabel status;
 	private JButton updateButton;
 	private JButton loadButton;
 	private JButton saveButton;
