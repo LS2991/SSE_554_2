@@ -16,7 +16,6 @@ public class NetworkClient {
 	public final static int portNumber1 = 8189;
 	public final static int portNumber2 = 8190;
 	public final static String IP = "192.168.1.229";
-	//public final static String fileReceived = "C:/Users/Louis/Desktop/databaseR.txt";
 	public final static String fileReceived = "//192.168.1.229/Users/Public/ClientSide/save_files";
 	public final static int FILE_SIZE = 6022386;
 	
@@ -29,10 +28,6 @@ public class NetworkClient {
 	static Socket sendingS = null;
 	static Socket receivingS = null;
 	
-	
-	public static void main(String[] args) throws IOException {
-		//getFile(fOStream, bOStream, s);
-	}
 	
 	public static Socket receivingConnect() throws UnknownHostException, IOException {
 		receivingS = new Socket(IP, portNumber1);
@@ -54,12 +49,8 @@ public class NetworkClient {
 	public static File getFile(FileOutputStream fOStream, BufferedOutputStream bOStream, Socket s) throws IOException {
 		
 		try {
-			
-			//if(receivingS == null) {
-				System.out.println("Connecting...");
-				s = receivingConnect();
-			//}
-			//receive file
+			System.out.println("Connecting...");
+			s = receivingConnect();
 			byte[] byteArray = new byte[FILE_SIZE];
 			InputStream iStream = s.getInputStream();
 			fOStream = new FileOutputStream(fileReceived);
@@ -85,9 +76,7 @@ public class NetworkClient {
 	public static void sendFile(FileInputStream fIStream, BufferedInputStream bIStream, OutputStream oStream, File f) throws IOException { //file must exist first
 		
 		try {
-			if(sendingS == null)
-				sendingConnect();
-			//s = new Socket(IP, portNumber);
+			sendingConnect();
 			System.out.println("Sending");
 			byte[] byteArray = new byte[(int) f.length()];
 			fIStream = new FileInputStream(f);
@@ -108,5 +97,4 @@ public class NetworkClient {
 			closeSendingConnection();
 		}
 	}
-
 }

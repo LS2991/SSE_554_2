@@ -26,12 +26,12 @@ public class NetworkConnection {
 	static FileOutputStream fOStream = null;
 	static BufferedOutputStream bOStream = null;
 	
-	public final static String fileReceived = "//192.168.1.229/Users/Public/ServerSide/save_files3";
+	//public final static String fileReceived = "//192.168.1.229/Users/Public/ServerSide/save_files3";
+	public final static String fileReceived = "//192.168.1.229/Users/Public/ServerSide/database.txt"; //test locally
 	public final static int FILE_SIZE = 6022386;
 	
 	public static void main (String [] args) throws IOException {
 		
-		//while(true) {
 			File f = new File("//192.168.1.229/Users/Public/ServerSide/save_files");
 
 			Thread sending = new Thread() {
@@ -40,7 +40,6 @@ public class NetworkConnection {
 					try {
 						sendFile(fIStream, bIStream, oStream, incomingSend, f);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -51,7 +50,6 @@ public class NetworkConnection {
 					try {
 						receiveFile(fOStream, bOStream, incomingReceive);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -59,25 +57,17 @@ public class NetworkConnection {
 			
 			sending.start();
 			receiving.start();
-			
-
-//			sendFile(fIStream, bIStream, oStream, incoming, f);
-//			receiveFile(fOStream, bOStream, incoming);
-
-		}
 		
-	//}
-	
+	}
+		
 	public static ServerSocket sendingConnect() throws IOException {
 		sendS = new ServerSocket(portNum1);
-		//incoming = s.accept();
 		
 		return sendS;
 	}
 	
 	public static ServerSocket receivingConnect() throws IOException {
 		receiveS = new ServerSocket(portNum2);
-		//incoming = s.accept();
 		
 		return receiveS;
 	}
@@ -92,20 +82,15 @@ public class NetworkConnection {
 	public static void closeReceiveConnection() throws IOException {
 		if(receiveS != null)
 			receiveS.close();
-//		if(incoming != null)
-//			incoming.close();
 	}
 	public static void sendFile(FileInputStream fIStream, BufferedInputStream bIStream, OutputStream oStream, Socket incoming, File f) throws IOException { //file must exist first
 		while(true) {
 				System.out.println("Waiting...");
 				try {
-					//if(incoming == null) {
-						incoming = sendingConnect().accept();
-					//}
-					//incoming = s.accept();
+					incoming = sendingConnect().accept();
+
 					System.out.println("Accepted connection : " + incoming);
 					//Sending a file
-					//File f = new File("c:/database.txt");
 					byte[] byteArray = new byte[(int)f.length()];
 					fIStream = new FileInputStream(f);
 					bIStream = new BufferedInputStream(fIStream);
@@ -117,7 +102,6 @@ public class NetworkConnection {
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					System.out.println("Done.");
@@ -138,9 +122,7 @@ public class NetworkConnection {
 			try {
 				System.out.println("Waiting to receive");
 				
-				//if(incoming == null) {
-					incoming = receivingConnect().accept();
-				//}
+				incoming = receivingConnect().accept();
 				
 				System.out.println("Getting file");
 				byte[] byteArray = new byte[FILE_SIZE];
